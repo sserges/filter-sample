@@ -16,7 +16,7 @@
         <ul>
           {% for snippet in filter.qs %}
             <li>
-              <a href="{% url 'snippets:detail' snippet.id %}">{{ snippet.title }}</a>
+              <a href="{% url 'snippets:detail' snippet.id %}">{{ snippet.title }}</a> | {{ snippet.body }} | {{ snippet.created }}
             </li>
           {% endfor %}
         </ul>

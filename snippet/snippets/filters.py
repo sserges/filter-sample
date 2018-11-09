@@ -11,6 +11,13 @@ class SnippetFilter(django_filters.FilterSet):
 
     ordering = django_filters.ChoiceFilter(label='Ordering', choices=CHOICES, method='filter_by_order')
 
+    order = django_filters.OrderingFilter(
+        label='Ordering 2',
+        fields=(
+            ('created', 'created')
+        )
+    )
+
     class Meta:
         model = Snippet
         fields = {
@@ -46,6 +53,7 @@ class ProductFilter(django_filters.FilterSet):
 class PostFilter(django_filters.FilterSet):
 
     comment = django_filters.CharFilter(label='Comment', method='filter_by_comment')
+    comment__content = django_filters.CharFilter(label='Comment content', lookup_expr='icontains')
 
     class Meta:
         model = Post
