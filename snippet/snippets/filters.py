@@ -9,21 +9,24 @@ class SnippetFilter(django_filters.FilterSet):
         ('descending', 'Descending')
     )
 
-    ordering = django_filters.ChoiceFilter(label='Ordering', choices=CHOICES, method='filter_by_order')
+    updated__date = django_filters.DateFilter(label='Updated date')
 
-    order = django_filters.OrderingFilter(
-        label='Ordering 2',
-        fields=(
-            ('created', 'created')
-        )
-    )
+    # ordering = django_filters.ChoiceFilter(label='Ordering', choices=CHOICES, method='filter_by_order')
+
+    # order = django_filters.OrderingFilter(
+    #     label='Ordering 2',
+    #     fields=(
+    #         ('created', 'created')
+    #     )
+    # )
 
     class Meta:
         model = Snippet
-        fields = {
-            'title': ['icontains'],
-            'body': ['icontains']
-        }
+        fields = [
+            # 'title': ['icontains'],
+            # 'body': ['icontains']
+            # 'updated'
+        ]
 
     def filter_by_order(self, queryset, name, value):
         expression = 'created' if value == 'ascending' else '-created'
@@ -52,8 +55,9 @@ class ProductFilter(django_filters.FilterSet):
 
 class PostFilter(django_filters.FilterSet):
 
-    comment = django_filters.CharFilter(label='Comment', method='filter_by_comment')
-    comment__content = django_filters.CharFilter(label='Comment content', lookup_expr='icontains')
+    # comment = django_filters.CharFilter(label='Comment', method='filter_by_comment')
+    # comment__content = django_filters.CharFilter(label='Comment content', lookup_expr='icontains')
+    comment__content = django_filters.CharFilter(label='Comment content')
 
     class Meta:
         model = Post
@@ -61,5 +65,5 @@ class PostFilter(django_filters.FilterSet):
             'title',
         ]
 
-    def filter_by_comment(self, queryset, name, value):
-        return queryset.filter(comment__content__icontains=value).distinct()
+    # def filter_by_comment(self, queryset, name, value):
+    #     return queryset.filter(comment__content__icontains=value).distinct()
